@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import SignInUp from '../pages/shop/sign-in-up/sign-in-up'
+
+import { signInWithGoogle } from '../../firebase/firebase.utils'
 
 import './sign-in.styles.scss'
 import FormInput from '../form-input/form-input'
@@ -24,7 +25,7 @@ const SignIn = () => {
         const { value, name } = event.target
 
         setSignIn(prevSignIn => {
-            const updatedField = { [name]: value}
+            const updatedField = { [name]: value }
             const editedSignIn = Object.assign({}, prevSignIn, updatedField)
             return editedSignIn
         })
@@ -37,23 +38,25 @@ const SignIn = () => {
 
             <form onSubmit={handleSubmit}>
                 <FormInput
-                name='email'
-                type='email'
-                label='Email'
-                value={signIn.email}
-                required
-                handleChange={handleChange}
+                    name='email'
+                    type='email'
+                    label='Email'
+                    value={signIn.email}
+                    required
+                    handleChange={handleChange}
                 />
                 <FormInput
-                name='password'
-                type='password'
-                label='Password'
-                value={signIn.password}
-                handleChange={handleChange}
-                required
+                    name='password'
+                    type='password'
+                    label='Password'
+                    value={signIn.password}
+                    handleChange={handleChange}
+                    required
                 />
-
-                <CustomButton type='submit'>Sign In</CustomButton>
+                <div className='buttons'>
+                    <CustomButton type='submit'>Sign In</CustomButton>
+                    <CustomButton onClick={signInWithGoogle} isGoogleSignIn>Sign in with Google</CustomButton>
+                </div>
             </form>
         </div>
     )
