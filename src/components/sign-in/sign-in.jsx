@@ -1,33 +1,39 @@
 import React, { useState } from 'react'
 
-import { signInWithGoogle } from '../../firebase/firebase.utils'
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils'
 
 import './sign-in.styles.scss'
 import FormInput from '../form-input/form-input'
 import CustomButton from '../custom-button/custom-button'
 
 const SignIn = () => {
-    const [signIn, setSignIn] = useState({
+    const [user, setUser] = useState({
         email: '',
         password: '',
     })
 
-    const handleSubmit = event => {
+    const handleSubmit = async event => {
         event.preventDefault()
-
-        setSignIn({
-            email: '',
-            password: '',
-        })
+        const { email, password } = user
+        try {
+            await auth.signInWithEmailAndPassword(email, password)
+            setUser({
+                email: '',
+                password: '',
+            })
+        }
+        catch(error){
+            console.error(error)
+        }
     }
 
     const handleChange = event => {
         const { value, name } = event.target
 
-        setSignIn(prevSignIn => {
+        setUser(prevUser => {
             const updatedField = { [name]: value }
-            const editedSignIn = Object.assign({}, prevSignIn, updatedField)
-            return editedSignIn
+            const editedUser = Object.assign({}, prevUser, updatedField)
+            return editedUser
         })
     }
 
@@ -41,7 +47,7 @@ const SignIn = () => {
                     name='email'
                     type='email'
                     label='Email'
-                    value={signIn.email}
+                    value={user.email}
                     required
                     handleChange={handleChange}
                 />
@@ -49,7 +55,7 @@ const SignIn = () => {
                     name='password'
                     type='password'
                     label='Password'
-                    value={signIn.password}
+                    value={user.password}
                     handleChange={handleChange}
                     required
                 />
