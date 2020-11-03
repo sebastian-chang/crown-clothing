@@ -15,13 +15,10 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // unsubscribeFromAuth.current =
     auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth)
         userRef.onSnapshot(snapShot => {
-          console.log('this is the snapshot ', snapShot.data())
-          console.log('this is user in app ')
           dispatch(setCurrentUser({
             id: snapShot.id,
             ...snapShot.data(),
@@ -34,7 +31,6 @@ const App = () => {
     })
 
   }, [dispatch])
-
 
   return (
     <div>
