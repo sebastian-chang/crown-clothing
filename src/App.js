@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 import { setCurrentUser } from './redux/user/user-actions'
 import './App.css';
@@ -12,6 +12,7 @@ import SignInUp from './components/pages/shop/sign-in-up/sign-in-up'
 
 const App = () => {
   // useDispatch as you would mapDispatchToProps in class based components
+  const currentUser = useSelector(state => state.user.currentUser)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -41,11 +42,15 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
-        <Route path='/signin' component={SignInUp} />
+        <Route exact path='/signin' render={() => currentUser ? (<Redirect to='/' />) :  (<SignInUp />)} />
       </Switch>
     </div>
   )
 }
+
+// const mapStateToProps = ({user}) => ({
+//   currentUser: user.currentUser
+// })
 
 // const mapDispatchToProps = dispatch => ({
 //   setCurrentUser: user => dispatch(setCurrentUser(user))

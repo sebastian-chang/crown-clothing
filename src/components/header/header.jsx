@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { auth } from '../../firebase/firebase.utils'
 import { useSelector } from 'react-redux'
 
-
 import './header.styles.scss'
 import { ReactComponent as Logo } from '../../assests/crown.svg'
 
