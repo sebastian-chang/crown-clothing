@@ -11,14 +11,16 @@ import Header from './components/header/header.jsx'
 import SignInUp from './components/pages/shop/sign-in-up/sign-in-up'
 
 const App = () => {
-  // const [currentUser, setCurrentUser] = useState(null)
+  // useDispatch as you would mapDispatchToProps in class based components
   const dispatch = useDispatch()
 
   useEffect(() => {
+    // Firebase authorization function
     auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth)
         userRef.onSnapshot(snapShot => {
+          // Sets user store to current logged in user
           dispatch(setCurrentUser({
             id: snapShot.id,
             ...snapShot.data(),
@@ -26,6 +28,7 @@ const App = () => {
         })
       }
       else {
+        // Removes user from user store
         dispatch(setCurrentUser(null))
       }
     })

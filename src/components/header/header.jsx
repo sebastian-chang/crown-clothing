@@ -8,6 +8,9 @@ import './header.styles.scss'
 import { ReactComponent as Logo } from '../../assests/crown.svg'
 
 const Header = () => {
+    // useSelector as you would mapStateToProps in class based components
+    // `state` is from our store.js `user` is from root-reducer.js which combines all reducers
+    // `currentUser` is the state we created in user-reducer.js
     const currentUser = useSelector(state => state.user.currentUser)
     return (
         <div className='header'>
