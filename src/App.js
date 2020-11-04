@@ -11,8 +11,9 @@ import Header from './components/header/header.jsx'
 import SignInUp from './components/pages/shop/sign-in-up/sign-in-up'
 
 const App = () => {
-  // useDispatch as you would mapDispatchToProps in class based components
+  // useSelector as you would mapStateToProps in class based components
   const currentUser = useSelector(state => state.user.currentUser)
+  // useDispatch as you would mapDispatchToProps in class based components
   const dispatch = useDispatch()
 
   useEffect(() => {
