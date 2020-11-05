@@ -9,6 +9,7 @@ import HomePage from './components/pages/homepage/homepage'
 import ShopPage from './components/pages/shop/shop'
 import Header from './components/header/header.jsx'
 import SignInUp from './components/pages/shop/sign-in-up/sign-in-up'
+import CheckoutPage from './components/checkout/checkout'
 
 const App = () => {
   // useSelector as you would mapStateToProps in class based components
@@ -43,6 +44,7 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
+        <Route path='/checkout' component={CheckoutPage} />
         <Route exact path='/signin' render={() => currentUser ? (<Redirect to='/' />) :  (<SignInUp />)} />
       </Switch>
     </div>
