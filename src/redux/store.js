@@ -6,6 +6,11 @@ import rootReducer from './root-reducer'
 
 const middlewares = [logger]
 
+// Sets logger for development but not live production site
+if (process.env.NODE_ENV === 'development') {
+  middlewares.push(logger)
+}
+
 const store = createStore(rootReducer, applyMiddleware(...middlewares))
 
 // Creating persisting storage
