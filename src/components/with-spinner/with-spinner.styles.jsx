@@ -6,7 +6,7 @@ export const SpinnerOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 export const SpinnerContainer = styled.div`
   display: inline-block;
@@ -27,4 +27,12 @@ export const SpinnerContainer = styled.div`
       -webkit-transform: rotate(360deg);
     }
   }
-`;
+`
+export const Test = styled.div`
+  height: 60vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: blue;
+`
