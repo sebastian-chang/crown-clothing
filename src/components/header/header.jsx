@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { auth } from '../../firebase/firebase.utils'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './header.styles.scss'
+import { signOutStart } from '../../redux/user/user-actions'
 import { ReactComponent as Logo } from '../../assests/crown.svg'
 import CartIcon from '../cart-icon/cart-icon'
 import CartDropdown from '../cart-dropdown/cart-dropdown'
@@ -14,6 +14,7 @@ const Header = () => {
     // `currentUser` is the state we created in user-reducer.js
     const currentUser = useSelector(state => state.user.currentUser)
     const hidden = useSelector(state => state.cart.hidden)
+    const dispatch = useDispatch()
     return (
         <div className='header'>
             <Link className='logo-container' to='/'>
@@ -28,7 +29,7 @@ const Header = () => {
                 </Link>
                 {/* {console.log('this is current user in header ', currentUser)} */}
                 {
-                    currentUser ? (<div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>) : (<Link className='option' to='/signin'>SIGN IN</Link>)
+                    currentUser ? (<div className='option' onClick={() => dispatch(signOutStart())}>SIGN OUT</div>) : (<Link className='option' to='/signin'>SIGN IN</Link>)
                 }
                 <CartIcon />
             </div>

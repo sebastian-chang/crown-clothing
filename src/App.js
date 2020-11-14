@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { auth, createUserProfileDocument } from './firebase/firebase.utils'
-import { setCurrentUser } from './redux/user/user-actions'
 import './App.css';
+
+import { checkUserSession } from './redux/user/user-actions'
 
 import HomePage from './components/pages/homepage/homepage'
 import ShopPage from './components/pages/shop/shop'
@@ -19,22 +19,24 @@ const App = () => {
 
   useEffect(() => {
     // Firebase authorization function
-    auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth)
-        userRef.onSnapshot(snapShot => {
-          // Sets user store to current logged in user
-          dispatch(setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          }))
-        })
-      }
-      else {
-        // Removes user from user store
-        dispatch(setCurrentUser(null))
-      }
-    })
+    // auth.onAuthStateChanged(async userAuth => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth)
+    //     userRef.onSnapshot(snapShot => {
+    //       // Sets user store to current logged in user
+    //       dispatch(setCurrentUser({
+    //         id: snapShot.id,
+    //         ...snapShot.data(),
+    //       }))
+    //     })
+    //   }
+    //   else {
+    //     // Removes user from user store
+    //     dispatch(setCurrentUser(null))
+    //   }
+    // })
+
+    dispatch(checkUserSession())
 
   }, [dispatch])
 

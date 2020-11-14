@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils'
+import { useDispatch } from 'react-redux'
 
+import { signUpStart } from '../../redux/user/user-actions'
 import FormInput from '../form-input/form-input'
 import CustonButton from '../custom-button/custom-button'
-
 import './sign-up.styles.scss'
+
 
 const SignUp = () => {
     const [newUser, setNewUser] = useState({
@@ -13,11 +14,12 @@ const SignUp = () => {
         password: '',
         confirmPassword: '',
     })
+    const dispatch = useDispatch()
 
     // Function to handle user sign up
     const handleSubmit = async event => {
         event.preventDefault()
-        const {displayName, email, password, confirmPassword} = newUser
+        const { displayName, email, password, confirmPassword } = newUser
 
         // Checks to see if user typed in same password
         if (password !== confirmPassword) {
@@ -27,9 +29,10 @@ const SignUp = () => {
         else {
             try {
                 // Creates a new user using firebase auth create new user
-                const { user } = await auth.createUserWithEmailAndPassword(email, password)
+                // const { user } = await auth.createUserWithEmailAndPassword(email, password)
                 // Creates a new document in our firebase database with user creds adding user's displayname
-                await createUserProfileDocument(user, { displayName })
+                // await createUserProfileDocument(user, { displayName })
+                dispatch(signUpStart({ displayName, email, password }))
                 // Resets form data
                 setNewUser({
                     displayName: '',

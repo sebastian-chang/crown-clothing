@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Route } from 'react-router-dom'
 
 // import { firestore, convertCollectionsSnapshotToMap } from '../../../firebase/firebase.utils'
-import { fetchCollectionsStartAsync } from '../../../redux/shop/shop-actions'
+import { fetchCollectionStart } from '../../../redux/shop/shop-actions'
 
 import CollectionsOverview from '../../collections-overview/collections-overview'
 import CollectionPage from '../collection/collection'
@@ -31,7 +31,7 @@ const ShopPage = ({ match }) => {
         // return function cleanup () {
         //     dispatch(updateCollection(unsubscribeFromSnapshot))
         // }
-        dispatch(fetchCollectionsStartAsync())
+        dispatch(fetchCollectionStart())
     }, [dispatch])
     return (
         <div className='shop-page'>
