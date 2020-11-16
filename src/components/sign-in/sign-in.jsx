@@ -23,6 +23,8 @@ const SignIn = () => {
     const handleChange = event => {
         const { value, name } = event.target
 
+        // uDemy way
+        // setUser({ ...user, [name]: value })
         setUser(prevUser => {
             const updatedField = { [name]: value }
             const editedUser = Object.assign({}, prevUser, updatedField)
